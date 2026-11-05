@@ -1,0 +1,29 @@
+-- GOD MODE DELTA - Tidak Bisa Mati
+-- By: Farwan dkk
+
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character or plr.CharacterAdded:Wait()
+local hum = char:WaitForChild("Humanoid")
+
+hum.MaxHealth = math.huge
+hum.Health = math.huge
+
+-- Biar gak bisa mati walau kena damage
+hum.HealthChanged:Connect(function(health)
+    if health < math.huge then
+        hum.Health = math.huge
+    end
+end)
+
+-- Anti void / jatuh
+game:GetService("RunService").Heartbeat:Connect(function()
+    if hum.Health < math.huge then
+        hum.Health = math.huge
+    end
+    -- Kalo jatuh ke void, balikin ke atas
+    if char.HumanoidRootPart and char.HumanoidRootPart.Position.Y < -100 then
+        char.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
+    end
+end)
+
+print("GOD MODE AKTIF - GAK BISA MATI")
